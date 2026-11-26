@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="ESR-HRMS2 - FORMATS">
+<title>ESR-HRMS2 - FORMATS</title>
+<style>
+  :root {
+    --bg: #eef2ff;
+    --card: #ffffff;
+    --border: #334155;
+    --text: #0f172a;
+    --primary: #1e3a8a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e0e7ff 0%, #f0fdfa 50%, #fef3c7 100%);
+    min-height: 100vh;
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+  body.submitted-mode .step-nav,
+  body.submitted-mode .step-section,
+  body.submitted-mode #saveToast {
+    display: none !important;
+  }
+
+  /* Updated Rich Indigo-Teal Heading Banner */
+  header.app-header.banner-header {
+    background: linear-gradient(120deg, #1e1b4b 0%, #1d4ed8 52%, #0f766e 100%);
+    padding: 13px 14px;
+    text-align: center;
+    border-bottom: 4px solid #fbbf24;
+    box-shadow: 0 5px 18px rgba(30, 27, 75, 0.24);
+  }
+  .name-board.banner-board {
+    max-width: 1080px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+    border: 2.5px solid #fbbf24;
+    border-radius: 12px;
+    padding: 11px 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+  }
+  .board-title {
+    color: #1e1b4b;
+    font-size: 1.26rem;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    outline: none;
+    cursor: text;
+    padding: 2px 6px;
+  }
+  .board-subtitle {
+    color: #0f766e;
+    font-size: 0.88rem;
+    font-weight: 800;
+    margin-top: 4px;
+    outline: none;
+    cursor: text;
+    padding: 2px 6px;
+  }
+  .board-title:hover, .board-title:focus,
+  .board-subtitle:hover, .board-subtitle:focus {
+    background: #eff6ff;
+    outline: 1px dashed #1d4ed8;
+    border-radius: 4px;
+  }
+  .board-edit-hint {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.72rem;
+    color: #1e1b4b;
+    font-weight: 700;
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    padding: 2px 11px;
+    border-radius: 12px;
+  }
+
+  /* Step Navigation Bar — Distinct Color per Part Button */
+  .step-nav {
+    max-width: 880px;
+    margin: 14px auto 0;
+    padding: 0 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .step-tab {
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.14);
+    transition: transform 0.12s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  }
+  .step-tab:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+  }
+  .step-tab[data-step="1"] {
+    background: #dbeafe;
+    color: #1e3a8a;
+    border-color: #2563eb;
+  }
+  .step-tab[data-step="1"].active {
+    background: #1d4ed8;
+    color: #ffffff;
+    border-color: #1e3a8a;
+    box-shadow: 0 4px 10px rgba(29, 78, 216, 0.38);
+  }
+  .step-tab[data-step="2"] {
+    background: #ccfbf1;
+    color: #115e59;
+    border-color: #0d9488;
+  }
+  .step-tab[data-step="2"].active {
+    background: #0f766e;
+    color: #ffffff;
+    border-color: #115e59;
+    box-shadow: 0 4px 10px rgba(15, 118, 110, 0.38);
+  }
+  .step-tab[data-step="3"] {
+    background: #ede9fe;
+    color: #5b21b6;
+    border-color: #7c3aed;
+  }
+  .step-tab[data-step="3"].active {
+    background: #7c3aed;
+    color: #ffffff;
+    border-color: #5b21b6;
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.38);
+  }
+  .step-tab[data-step="4"] {
+    background: #fef3c7;
+    color: #92400e;
+    border-color: #d97706;
+  }
+  .step-tab[data-step="4"].active {
+    background: #d97706;
+    color: #ffffff;
+    border-color: #92400e;
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.38);
+  }
+  .step-tab[data-step="5"] {
+    background: #dcfce7;
+    color: #14532d;
+    border-color: #16a34a;
+  }
+  .step-tab[data-step="5"].active {
+    background: #15803d;
+    color: #ffffff;
+    border-color: #14532d;
+    box-shadow: 0 4px 10px rgba(21, 128, 61, 0.38);
+  }
+
+  /* Vibrant Buttons */
+  .btn {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+    user-select: none;
+    transition: transform 0.1s ease, filter 0.15s ease;
+  }
+  .btn:hover { filter: brightness(1.07); }
+  .btn:active { transform: scale(0.98); }
+
+  .btn-primary { background: linear-gradient(90deg, #1d4ed8 0%, #0d9488 100%); color: #ffffff; }
+  .btn-prev { background: #475569; color: #ffffff; }
+  .btn-submit { background: linear-gradient(90deg, #15803d 0%, #059669 100%); color: #ffffff; }
+  .btn-pdf { background: linear-gradient(90deg, #b91c1c 0%, #e11d48 100%); color: #ffffff; }
+  .btn-excel { background: linear-gradient(90deg, #047857 0%, #0f766e 100%); color: #ffffff; }
+  .btn-share { background: linear-gradient(90deg, #0369a1 0%, #2563eb 100%); color: #ffffff; }
+  .btn-add { background: #f59e0b; color: #0f172a; }
+  .btn-cam { background: #7c3aed; color: #ffffff; }
+  .btn-sm { padding: 5px 11px; font-size: 0.8rem; }
+  .btn-del { background: #dc2626; color: #ffffff; padding: 4px 8px; font-size: 0.76rem; }
+  .btn-edit-rel {
+    background: #e0e7ff;
+    color: #1e3a8a;
+    border: 1px solid #6366f1;
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-edit-rel:hover { background: #c7d2fe; }
+
+  .rel-cell-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 120px;
+  }
+  .rel-cell-wrap input,
+  .rel-cell-wrap select {
+    flex: 1;
+    min-width: 82px;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 12px auto 105px;
+    padding: 0 12px;
+  }
+
+  .step-section { display: none; }
+  .step-section.active-step { display: block; }
+
+  .card {
+    background: var(--card);
+    border: 2px solid #1d4ed8;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(30, 58, 138, 0.12);
+  }
+  #step-2 .card { border-color: #0f766e; }
+  #step-3 .card { border-color: #7c3aed; }
+  #step-4 .card { border-color: #b45309; }
+  #step-5 .card { border-color: #15803d; }
+
+  .card-header {
+    background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
+    color: #ffffff;
+    border-bottom: 2px solid #1e3a8a;
+    padding: 10px 14px;
+    font-weight: 800;
+    font-size: 0.96rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  #step-2 .card-header { background: linear-gradient(90deg, #115e59 0%, #0d9488 100%); border-color: #115e59; }
+  #step-3 .card-header { background: linear-gradient(90deg, #5b21b6 0%, #7c3aed 100%); border-color: #5b21b6; }
+  #step-4 .card-header { background: linear-gradient(90deg, #92400e 0%, #d97706 100%); border-color: #92400e; }
+  #step-5 .card-header { background: linear-gradient(90deg, #14532d 0%, #16a34a 100%); border-color: #14532d; }
+
+  .sub-header {
+    background: linear-gradient(90deg, #dbeafe 0%, #e0f2fe 100%);
+    color: #1e3a8a;
+    padding: 7px 12px;
+    font-weight: 800;
+    font-size: 0.86rem;
+  }
+  #step-2 .sub-header { background: linear-gradient(90deg, #ccfbf1 0%, #e0f2fe 100%); color: #115e59; }
+  #step-3 .sub-header { background: linear-gradient(90deg, #ede9fe 0%, #e0f2fe 100%); color: #5b21b6; }
+
+  .same-addr-bar {
+    background: #fef9c3;
+    border: 1.5px solid #eab308;
+    border-radius: 6px;
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #713f12;
+  }
+  .same-addr-bar input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: #1d4ed8;
+    cursor: pointer;
+  }
+
+  .step-footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #f1f5f9;
+    border-top: 1.5px solid #cbd5e1;
+  }
+  .final-action-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  /* Save Toast */
+  .save-toast {
+    display: none;
+    max-width: 880px;
+    margin: 8px auto 0;
+    padding: 8px 14px;
+    background: #dcfce7;
+    color: #14532d;
+    border: 1.5px solid #16a34a;
+    border-radius: 6px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  /* Separate Submission Page View */
+  .submission-page {
+    display: none;
+    max-width: 740px;
+    margin: 20px auto 110px;
+    padding: 0 14px;
+  }
+  .submission-page.active {
+    display: block;
+  }
+  .submission-card {
+    border: 3px solid #10b981;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #ecfdf5 0%, #dbeafe 48%, #fef3c7 100%);
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.16);
+  }
+  .submit-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #16a34a 0%, #0d9488 100%);
+    color: #ffffff;
+    font-size: 1.6rem;
+    width: 58px;
+    height: 58px;
+    line-height: 58px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    box-shadow: 0 6px 14px rgba(22, 163, 74, 0.35);
+  }
+  .submit-response-title {
+    font-size: 1.28rem;
+    font-weight: 800;
+    color: #064e3b;
+    margin-bottom: 10px;
+  }
+  .submit-response-desc {
+    font-size: 0.94rem;
+    color: #1e293b;
+    margin-bottom: 18px;
+    line-height: 1.55;
+  }
+  .music-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    border: 1.5px solid #0d9488;
+    color: #0f766e;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .table-scroll {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  table.esr-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table.esr-table th {
+    background: #eff6ff;
+    color: #1e3a8a;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-align: left;
+    padding: 7px 7px;
+    border: 1px solid #94a3b8;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  table.esr-table td {
+    padding: 6px 7px;
+    border: 1px solid #cbd5e1;
+    vertical-align: middle;
+    font-size: 0.83rem;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  table.esr-table td.field-label {
+    width: 38%;
+    font-weight: 700;
+    background: #f8fafc;
+    color: #0f172a;
+  }
+
+  input[type="text"], input[type="date"], input[type="number"], input[type="email"], select {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1.5px solid #94a3b8;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: #0f172a;
+    background: #ffffff;
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+  }
+
+  /* Photo Upload, Camera & Enlarged Preview */
+  .photo-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+  }
+  .photo-preview-wrap {
+    width: 128px;
+    height: 154px;
+    border: 2px dashed #2563eb;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #eff6ff;
+    text-align: center;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    padding: 4px;
+  }
+  .photo-preview-wrap.doc-preview {
+    width: 170px;
+    height: 140px;
+    border-color: #7c3aed;
+    background: #f5f3ff;
+    color: #5b21b6;
+  }
+  .photo-preview-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .photo-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .photo-btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  .photo-meta {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1e3a8a;
+  }
+
+  .print-value-box {
+    display: none;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    font-weight: 700;
+    color: #000000;
+  }
+
+  /* Enlarged Camera Modal */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.88);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal-box {
+    background: #ffffff;
+    color: #0f172a;
+    border: 3px solid #7c3aed;
+    border-radius: 12px;
+    max-width: 680px;
+    width: 100%;
+    padding: 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  }
+  video#cameraStream {
+    width: 100%;
+    min-height: 320px;
+    max-height: 440px;
+    border-radius: 8px;
+    background: #000000;
+    object-fit: contain;
+  }
+  .camera-btn-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  /* Updated Rich Indigo-Teal Footer Banner (Screen Only — Hidden in Print) */
+  footer.app-footer.banner-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(120deg, #0f766e 0%, #1d4ed8 52%, #1e1b4b 100%);
+    color: #ffffff;
+    padding: 8px 14px;
+    z-index: 200;
+    border-top: 3px solid #fbbf24;
+    box-shadow: 0 -4px 14px rgba(15, 23, 42, 0.24);
+  }
+  .banner-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px 12px;
+    text-align: center;
+  }
+  .banner-pill-gold {
+    background: #fef3c7;
+    border: 1.5px solid #f59e0b;
+    border-radius: 6px;
+    padding: 3px 11px;
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: #1e1b4b;
+  }
+  .banner-pill-cyan {
+    background: #ffffff;
+    border: 1.5px solid #93c5fd;
+    border-radius: 6px;
+    padding: 3px 11px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  /* A4 Portrait Black & White Print Rules (All Steps Shown, Footer & Helper Controls Hidden) */
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 8mm 7mm 8mm 7mm;
+    }
+    * {
+      background: #ffffff !important;
+      color: #000000 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    body, body.submitted-mode {
+      background: #ffffff !important;
+      color: #000000 !important;
+      font-size: 7.5pt !important;
+      line-height: 1.25 !important;
+    }
+    body.submitted-mode .step-section {
+      display: block !important;
+    }
+    .no-print, .step-nav, .step-footer-actions, .save-toast, .submission-page, .same-addr-row, .board-edit-hint, .btn-add, .btn-del, .btn-edit-rel, .col-action, .photo-btn-row, .photo-meta, #cameraModal, footer, .app-footer, .banner-footer {
+      display: none !important;
+      visibility: hidden !important;
+    }
+    .step-section {
+      display: block !important;
+    }
+    header.app-header.banner-header {
+      padding: 4px 6px !important;
+      margin-bottom: 5px !important;
+      border-bottom: 1.5px solid #000000 !important;
+    }
+    .name-board.banner-board {
+      padding: 4px 8px !important;
+      border: 2px solid #000000 !important;
+      border-radius: 0 !important;
+    }
+    .board-title {
+      font-size: 10pt !important;
+      padding: 0 !important;
+    }
+    .board-subtitle {
+      font-size: 7.2pt !important;
+      margin-top: 2px !important;
+      padding: 0 !important;
+    }
+    .container {
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    .table-scroll {
+      overflow: visible !important;
+      width: 100% !important;
+    }
+    .card {
+      border: 1px solid #000000 !important;
+      margin-bottom: 6px !important;
+      border-radius: 0 !important;
+    }
+    .card-header {
+      border-bottom: 1px solid #000000 !important;
+      padding: 3px 6px !important;
+      font-size: 8pt !important;
+    }
+    .sub-header {
+      border-top: 1px solid #000000 !important;
+      border-bottom: 1px solid #000000 !important;
+      padding: 2.5px 6px !important;
+      font-size: 7.5pt !important;
+    }
+    table.esr-table {
+      width: 100% !important;
+      table-layout: fixed !important;
+      border-collapse: collapse !important;
+    }
+    table.esr-table th {
+      font-size: 6.2pt !important;
+      padding: 2.5px 3px !important;
+      border: 0.75pt solid #000000 !important;
+      white-space: normal !important;
+      word-break: break-word !important;
+      overflow-wrap: anywhere !important;
+    }
+    table.esr-table td {
+      font-size: 6.5pt !important;
+      padding: 2.5px 3px !important;
+      border: 0.75pt solid #000000 !important;
+      white-space: normal !important;
+      word-break: break-word !important;
+      overflow-wrap: anywhere !important;
+      vertical-align: top !important;
+    }
+    table.esr-table td.field-label {
+      width: 38% !important;
+    }
+    .photo-preview-wrap, .photo-preview-wrap.doc-preview {
+      width: 76px !important;
+      height: 88px !important;
+      border: 0.75pt solid #000000 !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+    }
+    input, select {
+      display: none !important;
+    }
+    .print-value-box {
+      display: block !important;
+      font-size: 6.5pt !important;
+      line-height: 1.2 !important;
+      white-space: normal !important;
+      word-break: break-word !important;
+      overflow-wrap: anywhere !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header banner-header">
+  <div class="name-board banner-board">
+    <div class="board-title" id="boardTitle" contenteditable="true" spellcheck="false" title="Click to edit Office Name Board">ಕ್ಷೇತ್ರ ಶಿಕ್ಷಣಾಧಿಕಾರಿಗಳ ಕಾರ್ಯಾಲಯ ಚಿಕ್ಕನಾಯಕನಹಳ್ಳಿ ತಾಲ್ಲೂಕು ತುಮಕೂರು ಜಿಲ್ಲೆ</div>
+    <div class="board-subtitle" id="boardSubtitle" contenteditable="true" spellcheck="false" title="Click to edit Sub-heading">KARNATAKA HRMS 2.0 — e-SERVICE REGISTER (ESR) PORTAL (ನಮೂನೆ)</div>
+    <span class="board-edit-hint">&#9998; ನೇಮ್ ಬೋರ್ಡ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ ಎಡಿಟ್ ಮಾಡಬಹುದು (Click name board to edit)</span>
+  </div>
+</header>
+
+<nav class="step-nav no-print" aria-label="Form Parts">
+  <button type="button" class="step-tab active" data-step="1" onclick="goToStep(1)">1. Part I-A (Personal)</button>
+  <button type="button" class="step-tab" data-step="2" onclick="goToStep(2)">2. Part I-B (Spouse)</button>
+  <button type="button" class="step-tab" data-step="3" onclick="goToStep(3)">3. Qualification</button>
+  <button type="button" class="step-tab" data-step="4" onclick="goToStep(4)">4. Part II-B (Family)</button>
+  <button type="button" class="step-tab" data-step="5" onclick="goToStep(5)">5. Nominee &amp; Submit</button>
+</nav>
+
+<div class="save-toast no-print" id="saveToast"></div>
+
+<div class="container">
+  <form id="esrForm" autocomplete="off">
+
+    <!-- ==================== STEP 1 : PART I : A. PERSONAL INFORMATION & FATHER DETAILS ==================== -->
+    <div class="step-section active-step" id="step-1">
+      <div class="card">
+        <div class="card-header">
+          <span>Part I: A. Personal Information &amp; Father Details (Step 1 of 5)</span>
+          <span>E-SR FORM</span>
+        </div>
+        <div class="table-scroll">
+          <table class="esr-table">
+            <thead>
+              <tr>
+                <th style="width:38%;">Particulars</th>
+                <th style="width:62%;">ENGLISH</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="field-label">Employee KGID Number*</td>
+                <td><input type="text" name="emp_kgid" lang="en" inputmode="numeric" placeholder="Enter Employee KGID Number"></td>
+              </tr>
+              <tr>
+                <td class="field-label">1. Name of the Government Servant* (As per the SSLC and SR)</td>
+                <td><input type="text" name="emp_name_en" lang="en" inputmode="latin" placeholder="Full Name in English"></td>
+              </tr>
+
+              <tr><td colspan="2" class="sub-header">2. Residence</td></tr>
+              <tr>
+                <td class="field-label">i) Address*</td>
+                <td><input type="text" name="res_addr" lang="en" inputmode="latin" oninput="syncCheckedAddresses()" placeholder="House / Street / Ward"></td>
+              </tr>
+              <tr>
+                <td class="field-label">ii) Revenue District*</td>
+                <td><input type="text" name="res_district" lang="en" inputmode="latin" oninput="syncCheckedAddresses()" placeholder="Revenue District"></td>
+              </tr>
+              <tr>
+                <td class="field-label">iii) Revenue Block/Taluka*</td>
+                <td><input type="text" name="res_taluk" lang="en" inputmode="latin" oninput="syncCheckedAddresses()" placeholder="Revenue Block / Taluka"></td>
+              </tr>
+              <tr>
+                <td class="field-label">iv) City / Village Name*</td>
+                <td><input type="text" name="res_village" lang="en" inputmode="latin" oninput="syncCheckedAddresses()" placeholder="City / Village Name"></td>
+              </tr>
+              <tr>
+                <td class="field-label">v) Pincode*</td>
+                <td><input type="text" name="res_pincode" inputmode="numeric" maxlength="6" oninput="syncCheckedAddresses()" placeholder="6-digit Pincode"></td>
+              </tr>
+              <tr>
+                <td class="field-label">vi) Mobile Number*</td>
+                <td><input type="text" name="res_mobile" inputmode="tel" maxlength="10" oninput="syncCheckedAddresses()" placeholder="10-digit Mobile Number"></td>
+              </tr>
+              <tr>
+                <td class="field-label">viii) E-mail Id</td>
+                <td><input type="email" name="res_email" lang="en" oninput="syncCheckedAddresses()" placeholder="Email ID"></td>
+              </tr>
+
+              <tr><td colspan="2" class="sub-header">3. Father's First Name* &amp; 4. Residence Address</td></tr>
+              <tr>
+                <td class="field-label">3. Father's First Name* (As in SSLC Marks Card)</td>
+                <td><input type="text" name="father_first_name" lang="en" inputmode="latin" placeholder="Father's First Name"></td>
+              </tr>
+              <tr class="same-addr-row no-print">
+                <td colspan="2">
+                  <label class="same-addr-bar">
+                    <input type="checkbox" id="sameAsEmpForFather" onchange="copyEmpAddressTo('father', this.checked)">
+                    <span>Same as Employee Residence Address</span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td class="field-label">4. Residence Address — i) Address*</td>
+                <td><input type="text" name="father_addr" lang="en" inputmode="latin" placeholder="Father Residence Address"></td>
+              </tr>
+              <tr>
+                <td class="field-label">ii) Revenue District*</td>
+                <td><input type="text" name="father_district" lang="en" inputmode="latin" placeholder="Revenue District"></td>
+              </tr>
+              <tr>
+                <td class="field-label">iii) Revenue Block/Taluka*</td>
+                <td><input type="text" name="father_taluk" lang="en" inputmode="latin" placeholder="Revenue Block / Taluka"></td>
+              </tr>
+              <tr>
+                <td class="field-label">iv) City / Village Name*</td>
+                <td><input type="text" name="father_village" lang="en" inputmode="latin" placeholder="City / Village Name"></td>
+              </tr>
+              <tr>
+                <td class="field-label">v) Pincode*</td>
+                <td><input type="text" name="father_pincode" inputmode="numeric" maxlength="6" placeholder="6-digit Pincode"></td>
+              </tr>
+              <tr>
+                <td class="field-label">vi) Mobile Number*</td>
+                <td><input type="text" name="father_mobile" inputmode="tel" maxlength="10" placeholder="10-digit Mobile Number"></td>
+              </tr>
+              <tr>
+                <td class="field-label">viii) E-mail Id</td>
+                <td><input type="email" name="father_email" lang="en" placeholder="Father Email ID"></td>
+              </tr>
+
+              <tr><td colspan="2" class="sub-header">5. Other Details</td></tr>
+              <tr>
+                <td class="field-label">i) Gender*</td>
+                <td>
+                  <select name="gender">
+                    <option value="">-- Select --</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Transgender">Transgender</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="field-label">ii) Religion</td>
+                <td>
+                  <select name="religion">
+                    <option value="">-- Select Religion --</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Muslim">Muslim</option>
+                    <option value="Christian">Christian</option>
+                    <option value="Jain">Jain</option>
+                    <option value="Buddhist">Buddhist</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="field-label">iii) Nationality*</td>
+                <td><input type="text" name="nationality" id="nationalityInput" value="Indian" lang="en" inputmode="latin" placeholder="Indian"></td>
+              </tr>
+              <tr>
+                <td class="field-label">iv) Social Category*</td>
+                <td>
+                  <select name="social_category">
+                    <option value="">-- Select Social Category --</option>
+                    <option value="General">General</option>
+                    <option value="SC">SC</option>
+                    <option value="ST">ST</option>
+                    <option value="Category 1">Category 1</option>
+                    <option value="2A">2A</option>
+                    <option value="2B">2B</option>
+                    <option value="3A">3A</option>
+                    <option value="3B">3B</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="field-label">iv.1) Certificate Number</td>
+                <td><input type="text" name="cert_number" lang="en" inputmode="latin" placeholder="Certificate Number"></td>
+              </tr>
+              <tr>
+                <td class="field-label">iv.2) Certificate [to be uploaded (if only SC/ST)]</td>
+                <td><input type="text" name="sc_st_cert_ref" lang="en" inputmode="latin" placeholder="Certificate reference (if only SC/ST)"></td>
+              </tr>
+              <tr>
+                <td class="field-label">v) Date of Birth*</td>
+                <td><input type="date" name="dob" id="dobInput" onchange="autoFillDobInWords()" oninput="autoFillDobInWords()"></td>
+              </tr>
+              <tr>
+                <td class="field-label">vi) Date of Birth in Words</td>
+                <td><input type="text" name="dob_words" id="dobWordsInput" lang="en" inputmode="latin" placeholder="Auto-filled from Date of Birth"></td>
+              </tr>
+              <tr>
+                <td class="field-label">viii) Exact Height by Measurement in (cm)</td>
+                <td><input type="text" name="height_cm" lang="en" inputmode="latin" placeholder="Height in cm"></td>
+              </tr>
+              <tr>
+                <td class="field-label">viii) Blood Group*</td>
+                <td><input type="text" name="blood_group" lang="en" inputmode="latin" placeholder="Blood Group (e.g., O+, A+, B+)"></td>
+              </tr>
+              <tr>
+                <td class="field-label">ix) Marital Status*</td>
+                <td><input type="text" name="marital_status" lang="en" inputmode="latin" placeholder="Marital Status"></td>
+              </tr>
+              <tr>
+                <td class="field-label">Employee Photo (Upload / Camera)</td>
+                <td>
+                  <div class="photo-box">
+                    <div class="photo-preview-wrap" id="empPhotoPreview"><span>Employee Photo</span></div>
+                    <div class="photo-controls">
+                      <div class="photo-btn-row">
+                        <input type="file" id="empPhotoFile" accept="image/*" style="display:none" onchange="processPhotoFile(event, 'emp')">
+                        <button type="button" class="btn btn-sm" onclick="document.getElementById('empPhotoFile').click()">&#128193; Upload Photo</button>
+                        <button type="button" class="btn btn-cam btn-sm" onclick="openCamera('emp', 'user')">&#128247; Camera</button>
+                        <button type="button" class="btn btn-sm btn-del" onclick="clearPhoto('emp')">Remove</button>
+                      </div>
+                      <span class="photo-meta" id="empPhotoMeta">Upload from gallery/files or capture using camera.</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr><td colspan="2" class="sub-header">6. Personal Mark of Identification</td></tr>
+              <tr>
+                <td class="field-label">i) Identification Mark 1*</td>
+                <td><input type="text" name="id_mark_1" lang="en" inputmode="latin" placeholder="Identification Mark 1"></td>
+              </tr>
+              <tr>
+                <td class="field-label">ii) Identification Mark 2*</td>
+                <td><input type="text" name="id_mark_2" lang="en" inputmode="latin" placeholder="Identification Mark 2"></td>
+              </tr>
+              <tr>
+                <td class="field-label">iii) Identification Mark 3</td>
+                <td><input type="text" name="id_mark_3" lang="en" inputmode="latin" placeholder="Identification Mark 3"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="step-footer-actions no-print">
+          <span style="font-size:0.8rem;font-weight:700;color:#1e3a8a;">Part I-A Completed?</span>
+          <button type="button" class="btn btn-primary" onclick="saveAndContinue(1, 2)">Save &amp; Continue &#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 2 : PART-1 : B SPOUSE DETAILS ==================== -->
+    <div class="step-section" id="step-2">
+      <div class="card">
+        <div class="card-header">
+          <span>PART-1: B Spouse Details (Step 2 of 5)</span>
+        </div>
+        <div class="table-scroll">
+          <table class="esr-table">
+            <tbody>
+              <tr><td colspan="2" class="sub-header">3(a) SPOUSE Details</td></tr>
+              <tr>
+                <td class="field-label">i). Husband Name / Wife Name*</td>
+                <td><input type="text" name="spouse_name" lang="en" inputmode="latin" placeholder="Husband Name / Wife Name"></td>
+              </tr>
+
+              <tr><td colspan="2" class="sub-header">3(b) Residence</td></tr>
+              <tr class="same-addr-row no-print">
+                <td colspan="2">
+                  <label class="same-addr-bar">
+                    <input type="checkbox" id="sameAsEmpForSpouse" onchange="copyEmpAddressTo('spouse', this.checked)">
+                    <span>Same as Employee Residence Address</span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td class="field-label">i) Address*</td>
+                <td><input type="text" name="spouse_addr" lang="en" inputmode="latin" placeholder="Spouse Address"></td>
+              </tr>
+              <tr>
+                <td class="field-label">ii) Revenue District*</td>
+                <td><input type="text" name="spouse_district" lang="en" inputmode="latin" placeholder="Revenue District"></td>
+              </tr>
+              <tr>
+                <td class="field-label">iii) Revenue Block/Taluka*</td>
+                <td><input type="text" name="spouse_taluk" lang="en" inputmode="latin" placeholder="Revenue Block / Taluka"></td>
+              </tr>
+              <tr>
+                <td class="field-label">iv) City / Village Name*</td>
+                <td><input type="text" name="spouse_village" lang="en" inputmode="latin" placeholder="City / Village Name"></td>
+              </tr>
+              <tr>
+                <td class="field-label">v) Pincode*</td>
+                <td><input type="text" name="spouse_pincode" inputmode="numeric" maxlength="6" placeholder="6-digit Pincode"></td>
+              </tr>
+              <tr>
+                <td class="field-label">vi) Mobile Number*</td>
+                <td><input type="text" name="spouse_mobile" inputmode="tel" maxlength="10" placeholder="10-digit Mobile Number"></td>
+              </tr>
+              <tr>
+                <td class="field-label">viii) E-mail Id</td>
+                <td><input type="email" name="spouse_email" lang="en" placeholder="Spouse Email ID"></td>
+              </tr>
+
+              <tr><td colspan="2" class="sub-header">3(c) Spouse Working Details</td></tr>
+              <tr>
+                <td class="field-label">Whether Spouse Working?*</td>
+                <td>
+                  <select name="spouse_working" id="spouseWorking" onchange="toggleSpouseWorkingIn()">
+                    <option value="">-- Select --</option>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="field-label">i) Spouse working in*</td>
+                <td>
+                  <select name="spouse_working_in" id="spouseWorkingIn">
+                    <option value="">-- Select --</option>
+                    <option value="GOVT">GOVT</option>
+                    <option value="PRIVATE">PRIVATE</option>
+                    <option value="AIDED">AIDED</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="field-label">iii) Designation</td>
+                <td><input type="text" name="spouse_designation" lang="en" inputmode="latin" placeholder="Designation"></td>
+              </tr>
+              <tr>
+                <td class="field-label">iv) Department</td>
+                <td><input type="text" name="spouse_department" lang="en" inputmode="latin" placeholder="Department"></td>
+              </tr>
+              <tr>
+                <td class="field-label">v) Office Address</td>
+                <td><input type="text" name="spouse_office_addr" lang="en" inputmode="latin" placeholder="Office Address"></td>
+              </tr>
+              <tr>
+                <td class="field-label">vi) Office Pincode</td>
+                <td><input type="text" name="spouse_office_pincode" inputmode="numeric" maxlength="6" placeholder="Office Pincode"></td>
+              </tr>
+              <tr>
+                <td class="field-label">Family Photo (Upload / Camera)</td>
+                <td>
+                  <div class="photo-box">
+                    <div class="photo-preview-wrap" id="famPhotoPreview"><span>Family Photo</span></div>
+                    <div class="photo-controls">
+                      <div class="photo-btn-row">
+                        <input type="file" id="famPhotoFile" accept="image/*" style="display:none" onchange="processPhotoFile(event, 'fam')">
+                        <button type="button" class="btn btn-sm" onclick="document.getElementById('famPhotoFile').click()">&#128193; Upload Family Photo</button>
+                        <button type="button" class="btn btn-cam btn-sm" onclick="openCamera('fam', 'environment')">&#128247; Camera</button>
+                        <button type="button" class="btn btn-sm btn-del" onclick="clearPhoto('fam')">Remove</button>
+                      </div>
+                      <span class="photo-meta" id="famPhotoMeta">Upload family photo from gallery/files or capture using camera.</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="step-footer-actions no-print">
+          <button type="button" class="btn btn-prev" onclick="goToStep(1)">&#8592; Previous</button>
+          <button type="button" class="btn btn-primary" onclick="saveAndContinue(2, 3)">Save &amp; Continue &#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 3 : QUALIFICATION DETAILS ==================== -->
+    <div class="step-section" id="step-3">
+      <div class="card">
+        <div class="card-header">
+          <span>Qualification Details (Examinations Passed) (Step 3 of 5)</span>
+          <button type="button" class="btn btn-add btn-sm no-print" onclick="addQualificationRow('')">+ Add Qualification</button>
+        </div>
+        <div class="table-scroll">
+          <table class="esr-table" id="qualTable">
+            <thead>
+              <tr>
+                <th>Course*</th>
+                <th>Year of Passing</th>
+                <th>Register Number*</th>
+                <th>Language 1</th>
+                <th>Language 2</th>
+                <th>Language 3</th>
+                <th>Core Subjects* (Mention All Core Sub)</th>
+                <th>Medium*</th>
+                <th>Percentage of Marks*</th>
+                <th>State</th>
+                <th>Board/University Name</th>
+                <th>Certificate Number*</th>
+                <th class="col-action no-print">Del</th>
+              </tr>
+            </thead>
+            <tbody id="qualTbody"></tbody>
+          </table>
+        </div>
+
+        <div class="table-scroll">
+          <table class="esr-table">
+            <tbody>
+              <tr><td colspan="2" class="sub-header">Qualification Certificate / Document Photo</td></tr>
+              <tr>
+                <td class="field-label">Qualification Document / Certificate Photo (Upload / Camera)</td>
+                <td>
+                  <div class="photo-box">
+                    <div class="photo-preview-wrap doc-preview" id="qualPhotoPreview"><span>Qualification Photo</span></div>
+                    <div class="photo-controls">
+                      <div class="photo-btn-row">
+                        <input type="file" id="qualPhotoFile" accept="image/*" style="display:none" onchange="processPhotoFile(event, 'qual')">
+                        <button type="button" class="btn btn-sm" onclick="document.getElementById('qualPhotoFile').click()">&#128193; Upload Photo</button>
+                        <button type="button" class="btn btn-cam btn-sm" onclick="openCamera('qual', 'environment')">&#128247; Camera</button>
+                        <button type="button" class="btn btn-sm btn-del" onclick="clearPhoto('qual')">Remove</button>
+                      </div>
+                      <span class="photo-meta" id="qualPhotoMeta">Upload qualification photo/document or capture using camera.</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="step-footer-actions no-print">
+          <button type="button" class="btn btn-prev" onclick="goToStep(2)">&#8592; Previous</button>
+          <button type="button" class="btn btn-primary" onclick="saveAndContinue(3, 4)">Save &amp; Continue &#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 4 : PART II: B. FAMILY AND DEPENDENT DETAILS ==================== -->
+    <div class="step-section" id="step-4">
+      <div class="card">
+        <div class="card-header">
+          <span>Part II: B. Family and Dependent Details (Step 4 of 5)</span>
+          <button type="button" class="btn btn-add btn-sm no-print" onclick="addFamilyRow()">+ Add Dependent</button>
+        </div>
+        <div class="table-scroll">
+          <table class="esr-table" id="familyTable">
+            <thead>
+              <tr>
+                <th>Member</th>
+                <th>Family Member Name*</th>
+                <th>Relation*</th>
+                <th>Gender</th>
+                <th>Date of Birth*</th>
+                <th>Is he or she a dependent*</th>
+                <th>Is the dependent a Pensioner*</th>
+                <th>Working In*</th>
+                <th>Income Per Annum*</th>
+                <th>Physically Challenged*</th>
+                <th>Percentage Of Disability*</th>
+                <th>Mobile Number*</th>
+                <th class="col-action no-print">Del</th>
+              </tr>
+            </thead>
+            <tbody id="familyTbody"></tbody>
+          </table>
+        </div>
+        <div class="step-footer-actions no-print">
+          <button type="button" class="btn btn-prev" onclick="goToStep(3)">&#8592; Previous</button>
+          <button type="button" class="btn btn-primary" onclick="saveAndContinue(4, 5)">Save &amp; Continue &#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 5 : NOMINEE DETAILS & FINAL SUBMIT ==================== -->
+    <div class="step-section" id="step-5">
+      <div class="card">
+        <div class="card-header">
+          <span>Nominee Details (Step 5 of 5)</span>
+          <button type="button" class="btn btn-add btn-sm no-print" onclick="addNomineeRow('')">+ Add Nominee</button>
+        </div>
+        <div class="table-scroll">
+          <table class="esr-table" id="nomineeTable">
+            <thead>
+              <tr>
+                <th>Nomination For*</th>
+                <th>Share in %*</th>
+                <th>Nomination Type*</th>
+                <th>Family Member*</th>
+                <th>Relation*</th>
+                <th>Gender*</th>
+                <th>Nomination Stands Invalid If</th>
+                <th>Date Of Birth Of The Nominee*</th>
+                <th>Date Of Nomination*</th>
+                <th>Mobile Number*</th>
+                <th class="col-action no-print">Del</th>
+              </tr>
+            </thead>
+            <tbody id="nomineeTbody"></tbody>
+          </table>
+        </div>
+        <div class="step-footer-actions no-print">
+          <button type="button" class="btn btn-prev" onclick="goToStep(4)">&#8592; Previous</button>
+          <div class="final-action-group">
+            <button type="button" class="btn btn-share" onclick="sharePortalLink()">&#128279; Share ESR-HRMS2 - FORMATS</button>
+            <button type="button" class="btn btn-submit" onclick="handleFinalSubmit()">&#9989; Final Submit</button>
+            <button type="button" class="btn btn-pdf" onclick="prepareAndPrint()">&#128424; Download PDF (A4 Portrait)</button>
+            <button type="button" class="btn btn-excel" onclick="downloadExcelSheet()">&#128202; Download Excel Sheet</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<!-- ==================== SEPARATE SUBMISSION SUCCESS PAGE ==================== -->
+<section class="submission-page no-print" id="submissionPage" aria-live="polite">
+  <div class="submission-card">
+    <div class="submit-badge">&#10004;</div>
+    <div class="submit-response-title">Your ESR data is submitted successfully. Thank you for using this website.</div>
+    <div class="music-status-pill" id="musicStatusPill">&#127925; Background Music &amp; Voice Active</div>
+    <div class="submit-response-desc" id="submitResponseText">
+      Your ESR details have been saved. You can download your A4 Portrait PDF or Excel Sheet below.
+    </div>
+    <div class="final-action-group" style="justify-content:center;">
+      <button type="button" class="btn btn-share" onclick="sharePortalLink()">&#128279; Share ESR-HRMS2 - FORMATS</button>
+      <button type="button" class="btn btn-pdf" onclick="prepareAndPrint()">&#128424; Download PDF (A4 Portrait)</button>
+      <button type="button" class="btn btn-excel" onclick="downloadExcelSheet()">&#128202; Download Excel Sheet (.xls)</button>
+      <button type="button" class="btn btn-cam btn-sm" id="toggleMusicBtn" onclick="toggleBackgroundMusic()">&#127925; Pause Music</button>
+      <button type="button" class="btn btn-sm" onclick="speakSubmissionMessage()">&#128266; Replay Voice</button>
+      <button type="button" class="btn btn-prev btn-sm" onclick="returnToFormFromSubmission()">&#8592; Back to Form</button>
+    </div>
+  </div>
+</section>
+
+<!-- Enlarged Camera Modal -->
+<div class="modal-backdrop no-print" id="cameraModal">
+  <div class="modal-box">
+    <div style="font-weight:800;font-size:1.05rem;color:#5b21b6;" id="cameraModalTitle">Capture Photo</div>
+    <video id="cameraStream" autoplay playsinline></video>
+    <div class="camera-btn-bar">
+      <button type="button" class="btn btn-sm" onclick="switchCameraFacing()">&#128260; Front / Rear</button>
+      <button type="button" class="btn btn-submit btn-sm" onclick="snapCameraPhoto()">&#128248; Capture</button>
+      <button type="button" class="btn btn-sm btn-del" onclick="closeCamera()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Updated Rich Indigo-Teal Footer Banner (Screen Only — Hidden in Print) -->
+<footer class="app-footer banner-footer no-print">
+  <div class="banner-inner">
+    <span class="banner-pill-gold">Designed by :LAKSHMIKANTH R(Mob: 9844444871)</span>
+    <span class="banner-pill-cyan">ಸಲಹೆ ಮತ್ತು ಮಾರ್ಗದರ್ಶನ :VENKATARAMANAIAH PRESIDENT KSTPA CHIKKANAYAKANAHALLI TALUK TUMKUR DIST &amp; SHIVAKUMAR K PRESIDENT TCS CHIKKANAYAKANAHALLI TALUK</span>
+  </div>
+</footer>
+
+<script>
+  const STORAGE_KEY = "hrms2_esr_wizard_data_v5";
+  const SHARE_LINK_TITLE = "ESR-HRMS2 - FORMATS";
+  const RELATION_OPTIONS = ["Father", "Mother", "Husband", "Wife", "Son", "Daughter"];
+  const photoStore = { emp: "", fam: "", qual: "" };
+  let activeCamTarget = "emp";
+  let activeCamFacing = "user";
+  let mediaStream = null;
+  let currentStep = 1;
+
+  // Web Audio background music state
+  let bgAudioCtx = null;
+  let bgMusicInterval = null;
+  let bgMusicPlaying = false;
+
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  // Share link using exact title "ESR-HRMS2 - FORMATS" without GitHub Pages in brackets
+  async function sharePortalLink() {
+    const shareUrl = window.location.href;
+    const shareData = {
+      title: SHARE_LINK_TITLE,
+      text: `${SHARE_LINK_TITLE} — ${shareUrl}`,
+      url: shareUrl
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        showToast(`Shared ${SHARE_LINK_TITLE}`);
+        return;
+      }
+    } catch (e) {
+      if (e && e.name === "AbortError") return;
+    }
+
+    const formattedCopy = `${SHARE_LINK_TITLE}: ${shareUrl}`;
+    try {
+      await navigator.clipboard.writeText(formattedCopy);
+      showToast(`Copied link as "${SHARE_LINK_TITLE}"`);
+    } catch (e) {
+      prompt(`Copy link (${SHARE_LINK_TITLE}):`, formattedCopy);
+    }
+  }
+
+  // Restrict text inputs strictly to English / ASCII printable characters
+  function restrictToEnglishOnly(inputEl) {
+    const cleaned = inputEl.value.replace(/[^\x20-\x7E]/g, "");
+    if (cleaned !== inputEl.value) {
+      inputEl.value = cleaned;
+    }
+  }
+
+  function bindEnglishOnlyInputs() {
+    document.querySelectorAll('input[type="text"], input[type="email"]').forEach(inp => {
+      if (inp.dataset.enBound === "1") return;
+      inp.dataset.enBound = "1";
+      inp.setAttribute("lang", "en");
+      inp.addEventListener("input", () => restrictToEnglishOnly(inp));
+    });
+  }
+
+  // Build Relation cell HTML with dropdown (Father, Mother, Husband, Wife, Son, Daughter) + edit toggle
+  function buildRelationCellHtml(fieldName, initialValue = "") {
+    const val = String(initialValue || "");
+    const isCustom = val !== "" && !RELATION_OPTIONS.includes(val);
+    const optionsHtml = RELATION_OPTIONS.map(opt =>
+      `<option value="${opt}" ${val === opt ? "selected" : ""}>${opt}</option>`
+    ).join("");
+
+    return `
+      <div class="rel-cell-wrap">
+        <select class="rel-select" data-rel-field="${fieldName}" style="${isCustom ? "display:none;" : ""}" onchange="onRelationDropdownChange(this)">
+          <option value="">-- Select --</option>
+          ${optionsHtml}
+        </select>
+        <input type="text" class="rel-input" name="${fieldName}" value="${escapeHtml(val)}" placeholder="Relation" style="${isCustom ? "" : "display:none;"}">
+        <button type="button" class="btn-edit-rel no-print" title="Edit Relation Text" onclick="toggleRelationEdit(this)">${isCustom ? "List" : "Edit"}</button>
+      </div>
+    `;
+  }
+
+  function onRelationDropdownChange(selectEl) {
+    const wrap = selectEl.closest(".rel-cell-wrap");
+    const inputEl = wrap?.querySelector(".rel-input");
+    if (inputEl) {
+      inputEl.value = selectEl.value;
+    }
+  }
+
+  function toggleRelationEdit(btnEl) {
+    const wrap = btnEl.closest(".rel-cell-wrap");
+    const selectEl = wrap?.querySelector(".rel-select");
+    const inputEl = wrap?.querySelector(".rel-input");
+    if (!selectEl || !inputEl) return;
+
+    const editingText = inputEl.style.display !== "none";
+    if (!editingText) {
+      inputEl.value = selectEl.value || inputEl.value;
+      selectEl.style.display = "none";
+      inputEl.style.display = "";
+      inputEl.focus();
+      btnEl.textContent = "List";
+    } else {
+      if (RELATION_OPTIONS.includes(inputEl.value)) {
+        selectEl.value = inputEl.value;
+      } else {
+        selectEl.value = "";
+      }
+      inputEl.style.display = "none";
+      selectEl.style.display = "";
+      btnEl.textContent = "Edit";
+    }
+  }
+
+  function getRelationValue(rowEl, fieldName) {
+    const inp = rowEl.querySelector(`.rel-input[name="${fieldName}"]`);
+    const sel = rowEl.querySelector(".rel-select");
+    if (inp && inp.style.display !== "none") {
+      return inp.value;
+    }
+    return (sel && sel.value) ? sel.value : (inp ? inp.value : "");
+  }
+
+  // Convert numbers to English words for Date of Birth in Words
+  function numberToWords(num) {
+    const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+    const teens = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+    const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+
+    if (num === 0) return "Zero";
+    if (num < 10) return ones[num];
+    if (num < 20) return teens[num - 10];
+    if (num < 100) {
+      return tens[Math.floor(num / 10)] + (num % 10 ? " " + ones[num % 10] : "");
+    }
+    if (num < 1000) {
+      return ones[Math.floor(num / 100)] + " Hundred" + (num % 100 ? " " + numberToWords(num % 100) : "");
+    }
+    if (num < 10000) {
+      const thousands = Math.floor(num / 1000);
+      const rem = num % 1000;
+      return ones[thousands] + " Thousand" + (rem ? " " + numberToWords(rem) : "");
+    }
+    return String(num);
+  }
+
+  function formatDateInWords(dateStr) {
+    if (!dateStr) return "";
+    const parts = dateStr.split("-");
+    if (parts.length !== 3) return "";
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10);
+    const day = parseInt(parts[2], 10);
+    if (!year || !month || !day) return "";
+
+    const months = [
+      "", "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const dayWord = numberToWords(day);
+    const monthWord = months[month] || "";
+    const yearWord = numberToWords(year);
+    return `${dayWord} ${monthWord} ${yearWord}`.trim();
+  }
+
+  function autoFillDobInWords() {
+    const dobEl = document.getElementById("dobInput");
+    const wordsEl = document.getElementById("dobWordsInput");
+    if (!dobEl || !wordsEl) return;
+    wordsEl.value = formatDateInWords(dobEl.value);
+  }
+
+  // Copy Employee Residence Address to Father or Spouse (Editable afterwards)
+  function copyEmpAddressTo(targetPrefix, isChecked) {
+    if (!isChecked) return;
+    const mapping = [
+      ["res_addr", `${targetPrefix}_addr`],
+      ["res_district", `${targetPrefix}_district`],
+      ["res_taluk", `${targetPrefix}_taluk`],
+      ["res_village", `${targetPrefix}_village`],
+      ["res_pincode", `${targetPrefix}_pincode`],
+      ["res_mobile", `${targetPrefix}_mobile`],
+      ["res_email", `${targetPrefix}_email`]
+    ];
+    mapping.forEach(([srcName, dstName]) => {
+      const src = document.querySelector(`[name="${srcName}"]`);
+      const dst = document.querySelector(`[name="${dstName}"]`);
+      if (src && dst) dst.value = src.value;
+    });
+    saveAllFormData(true);
+  }
+
+  function syncCheckedAddresses() {
+    const fChk = document.getElementById("sameAsEmpForFather");
+    const sChk = document.getElementById("sameAsEmpForSpouse");
+    if (fChk && fChk.checked) copyEmpAddressTo("father", true);
+    if (sChk && sChk.checked) copyEmpAddressTo("spouse", true);
+  }
+
+  function showToast(msg) {
+    const el = document.getElementById("saveToast");
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = "block";
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => { el.style.display = "none"; }, 2600);
+  }
+
+  function goToStep(stepNum) {
+    document.body.classList.remove("submitted-mode");
+    document.getElementById("submissionPage")?.classList.remove("active");
+    stopBackgroundMusic();
+
+    currentStep = stepNum;
+    document.querySelectorAll(".step-section").forEach(sec => sec.classList.remove("active-step"));
+    const activeSec = document.getElementById("step-" + stepNum);
+    if (activeSec) activeSec.classList.add("active-step");
+
+    document.querySelectorAll(".step-tab").forEach(tab => {
+      tab.classList.toggle("active", Number(tab.dataset.step) === stepNum);
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function returnToFormFromSubmission() {
+    stopBackgroundMusic();
+    if ("speechSynthesis" in window) {
+      try { window.speechSynthesis.cancel(); } catch (e) {}
+    }
+    goToStep(5);
+  }
+
+  function saveAllFormData(silent = false) {
+    try {
+      const form = document.getElementById("esrForm");
+      const simpleFields = {};
+      form.querySelectorAll("input, select").forEach(el => {
+        if (!el.name || el.name.endsWith("[]") || el.type === "file" || el.type === "checkbox") return;
+        simpleFields[el.name] = el.value;
+      });
+
+      const quals = Array.from(document.querySelectorAll("#qualTbody tr")).map(tr => ({
+        course: tr.querySelector('[name="qual_course[]"]')?.value || "",
+        year: tr.querySelector('[name="qual_year[]"]')?.value || "",
+        reg: tr.querySelector('[name="qual_reg[]"]')?.value || "",
+        lang1: tr.querySelector('[name="qual_lang1[]"]')?.value || "",
+        lang2: tr.querySelector('[name="qual_lang2[]"]')?.value || "",
+        lang3: tr.querySelector('[name="qual_lang3[]"]')?.value || "",
+        core_sub: tr.querySelector('[name="qual_core_sub[]"]')?.value || "",
+        medium: tr.querySelector('[name="qual_medium[]"]')?.value || "",
+        pct: tr.querySelector('[name="qual_pct[]"]')?.value || "",
+        state: tr.querySelector('[name="qual_state[]"]')?.value || "",
+        board_univ: tr.querySelector('[name="qual_board_univ[]"]')?.value || "",
+        cert_no: tr.querySelector('[name="qual_cert_no[]"]')?.value || ""
+      }));
+
+      const families = Array.from(document.querySelectorAll("#familyTbody tr")).map(tr => ({
+        name: tr.querySelector('[name="fam_name[]"]')?.value || "",
+        relation: getRelationValue(tr, "fam_relation[]"),
+        gender: tr.querySelector('[name="fam_gender[]"]')?.value || "",
+        dob: tr.querySelector('[name="fam_dob[]"]')?.value || "",
+        dependent: tr.querySelector('[name="fam_dependent[]"]')?.value || "",
+        pensioner: tr.querySelector('[name="fam_pensioner[]"]')?.value || "",
+        working_in: tr.querySelector('[name="fam_working_in[]"]')?.value || "",
+        income: tr.querySelector('[name="fam_income[]"]')?.value || "",
+        phy_challenged: tr.querySelector('[name="fam_phy_challenged[]"]')?.value || "",
+        disability_pct: tr.querySelector('[name="fam_disability_pct[]"]')?.value || "",
+        mobile: tr.querySelector('[name="fam_mobile[]"]')?.value || ""
+      }));
+
+      const nominees = Array.from(document.querySelectorAll("#nomineeTbody tr")).map(tr => ({
+        nom_for: tr.querySelector('[name="nom_for[]"]')?.value || "",
+        share_pct: tr.querySelector('[name="nom_share_pct[]"]')?.value || "",
+        nom_type: tr.querySelector('[name="nom_type[]"]')?.value || "",
+        member: tr.querySelector('[name="nom_member[]"]')?.value || "",
+        relation: getRelationValue(tr, "nom_relation[]"),
+        gender: tr.querySelector('[name="nom_gender[]"]')?.value || "",
+        invalid_if: tr.querySelector('[name="nom_invalid_if[]"]')?.value || "",
+        dob: tr.querySelector('[name="nom_dob[]"]')?.value || "",
+        nom_date: tr.querySelector('[name="nom_date[]"]')?.value || "",
+        mobile: tr.querySelector('[name="nom_mobile[]"]')?.value || ""
+      }));
+
+      const payload = {
+        boardTitle: document.getElementById("boardTitle")?.innerText || "",
+        boardSubtitle: document.getElementById("boardSubtitle")?.innerText || "",
+        sameFather: Boolean(document.getElementById("sameAsEmpForFather")?.checked),
+        sameSpouse: Boolean(document.getElementById("sameAsEmpForSpouse")?.checked),
+        simpleFields,
+        quals,
+        families,
+        nominees,
+        photos: photoStore
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      if (!silent) showToast("Part " + currentStep + " saved! Continuing to Part " + (currentStep + 1) + "...");
+    } catch (e) {
+      if (!silent) showToast("Moved to next part.");
+    }
+  }
+
+  function saveAndContinue(fromStep, nextStep) {
+    saveAllFormData(false);
+    goToStep(nextStep);
+  }
+
+  function restoreSavedFormData() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return false;
+      const data = JSON.parse(raw);
+
+      if (data.boardTitle) document.getElementById("boardTitle").innerText = data.boardTitle;
+      if (data.boardSubtitle) document.getElementById("boardSubtitle").innerText = data.boardSubtitle;
+      if (data.sameFather) document.getElementById("sameAsEmpForFather").checked = true;
+      if (data.sameSpouse) document.getElementById("sameAsEmpForSpouse").checked = true;
+
+      if (data.simpleFields) {
+        Object.entries(data.simpleFields).forEach(([k, v]) => {
+          const el = document.querySelector(`[name="${k}"]`);
+          if (el) el.value = v;
+        });
+      }
+      if (!document.getElementById("nationalityInput").value) {
+        document.getElementById("nationalityInput").value = "Indian";
+      }
+      if (document.getElementById("dobInput").value && !document.getElementById("dobWordsInput").value) {
+        autoFillDobInWords();
+      }
+
+      if (Array.isArray(data.quals) && data.quals.length) {
+        document.getElementById("qualTbody").innerHTML = "";
+        data.quals.forEach(q => addQualificationRow(q.course, q));
+      } else {
+        ["SSLC", "PUC", "DEGREE"].forEach(c => addQualificationRow(c));
+      }
+
+      if (Array.isArray(data.families) && data.families.length) {
+        document.getElementById("familyTbody").innerHTML = "";
+        data.families.forEach(f => addFamilyRow(f));
+      } else {
+        addFamilyRow();
+      }
+
+      if (Array.isArray(data.nominees) && data.nominees.length) {
+        document.getElementById("nomineeTbody").innerHTML = "";
+        data.nominees.forEach(n => addNomineeRow(n.nom_for, n));
+      } else {
+        ["DCRG", "GIS"].forEach(n => addNomineeRow(n));
+      }
+
+      if (data.photos) {
+        if (data.photos.emp) {
+          photoStore.emp = data.photos.emp;
+          document.getElementById("empPhotoPreview").innerHTML = `<img src="${data.photos.emp}" alt="Employee Photo">`;
+          document.getElementById("empPhotoMeta").textContent = "Photo Restored";
+        }
+        if (data.photos.fam) {
+          photoStore.fam = data.photos.fam;
+          document.getElementById("famPhotoPreview").innerHTML = `<img src="${data.photos.fam}" alt="Family Photo">`;
+          document.getElementById("famPhotoMeta").textContent = "Family Photo Restored";
+        }
+        if (data.photos.qual) {
+          photoStore.qual = data.photos.qual;
+          document.getElementById("qualPhotoPreview").innerHTML = `<img src="${data.photos.qual}" alt="Qualification Photo">`;
+          document.getElementById("qualPhotoMeta").textContent = "Qualification Photo Restored";
+        }
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // Gentle repeating background melody via Web Audio API
+  function playMusicStep(freq, durationSec) {
+    if (!bgAudioCtx) return;
+    const now = bgAudioCtx.currentTime;
+    const osc = bgAudioCtx.createOscillator();
+    const gain = bgAudioCtx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(freq, now);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.08, now + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + durationSec);
+    osc.connect(gain);
+    gain.connect(bgAudioCtx.destination);
+    osc.start(now);
+    osc.stop(now + durationSec + 0.03);
+  }
+
+  function startBackgroundMusic() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!bgAudioCtx) {
+        bgAudioCtx = new AudioCtx();
+      }
+      if (bgAudioCtx.state === "suspended") {
+        bgAudioCtx.resume();
+      }
+      stopBackgroundMusic();
+
+      const melody = [
+        523.25, // C5
+        659.25, // E5
+        783.99, // G5
+        880.00, // A5
+        783.99, // G5
+        659.25, // E5
+        587.33, // D5
+        659.25  // E5
+      ];
+      let stepIdx = 0;
+
+      const playPhrase = () => {
+        if (!bgMusicPlaying) return;
+        for (let i = 0; i < melody.length; i++) {
+          const noteFreq = melody[(stepIdx + i) % melody.length];
+          setTimeout(() => {
+            if (bgMusicPlaying) playMusicStep(noteFreq, 0.34);
+          }, i * 320);
+        }
+        stepIdx = (stepIdx + 4) % melody.length;
+      };
+
+      bgMusicPlaying = true;
+      playPhrase();
+      bgMusicInterval = setInterval(playPhrase, melody.length * 320 + 250);
+      updateMusicUI();
+    } catch (e) {}
+  }
+
+  function stopBackgroundMusic() {
+    bgMusicPlaying = false;
+    if (bgMusicInterval) {
+      clearInterval(bgMusicInterval);
+      bgMusicInterval = null;
+    }
+    updateMusicUI();
+  }
+
+  function toggleBackgroundMusic() {
+    if (bgMusicPlaying) {
+      stopBackgroundMusic();
+    } else {
+      startBackgroundMusic();
+    }
+  }
+
+  function updateMusicUI() {
+    const btn = document.getElementById("toggleMusicBtn");
+    const pill = document.getElementById("musicStatusPill");
+    if (btn) btn.innerHTML = bgMusicPlaying ? "&#9208; Pause Music" : "&#9654; Play Music";
+    if (pill) {
+      pill.innerHTML = bgMusicPlaying
+        ? "&#127925; Background Music Playing"
+        : "&#128263; Background Music Paused";
+    }
+  }
+
+  function speakSubmissionMessage() {
+    try {
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(
+          "Your ESR data is submitted successfully. Thank you for using this website."
+        );
+        utterance.lang = "en-IN";
+        utterance.rate = 0.95;
+        utterance.pitch = 1.05;
+        window.speechSynthesis.speak(utterance);
+      }
+    } catch (e) {}
+  }
+
+  function handleFinalSubmit() {
+    saveAllFormData(true);
+
+    const empName = (document.querySelector('[name="emp_name_en"]')?.value || "").trim();
+    const kgidNo = (document.querySelector('[name="emp_kgid"]')?.value || "").trim();
+    const nowStr = new Date().toLocaleString("en-IN");
+    const txt = document.getElementById("submitResponseText");
+
+    let headerMeta = "";
+    if (empName || kgidNo) {
+      headerMeta = `<strong>${empName ? "Employee: " + escapeHtml(empName) : ""}${empName && kgidNo ? " | " : ""}${kgidNo ? "KGID: " + escapeHtml(kgidNo) : ""}</strong><br>`;
+    }
+
+    txt.innerHTML =
+      headerMeta +
+      `Submitted &amp; Saved on <strong>${escapeHtml(nowStr)}</strong>.<br>` +
+      `Download your <strong>A4 Portrait PDF</strong> or <strong>Excel Sheet</strong> below.`;
+
+    document.body.classList.add("submitted-mode");
+    document.getElementById("submissionPage").classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    startBackgroundMusic();
+    setTimeout(speakSubmissionMessage, 450);
+  }
+
+  // Export all entered ESR sections as an Excel (.xls) workbook
+  function downloadExcelSheet() {
+    saveAllFormData(true);
+    const getVal = name => escapeHtml(document.querySelector(`[name="${name}"]`)?.value || "");
+    const empName = (document.querySelector('[name="emp_name_en"]')?.value || "Employee").trim().replace(/[^a-zA-Z0-9_-]+/g, "_");
+
+    let html = `
+      <html xmlns:o="urn:schemas-microsoft-com:office:office"
+            xmlns:x="urn:schemas-microsoft-com:office:excel"
+            xmlns="http://www.w3.org/TR/REC-html40">
+      <head><meta charset="UTF-8"></head>
+      <body>
+      <table border="1" cellspacing="0" cellpadding="4">
+        <tr><th colspan="2" style="font-size:14pt;background:#dbeafe;">${escapeHtml(document.getElementById("boardTitle")?.innerText || "")}</th></tr>
+        <tr><th colspan="2" style="background:#f1f5f9;">PART I : A. PERSONAL INFORMATION &amp; FATHER DETAILS</th></tr>
+        <tr><td><b>Employee KGID Number</b></td><td>${getVal("emp_kgid")}</td></tr>
+        <tr><td><b>1. Name of the Government Servant (ENGLISH)</b></td><td>${getVal("emp_name_en")}</td></tr>
+        <tr><td><b>2.i) Address</b></td><td>${getVal("res_addr")}</td></tr>
+        <tr><td><b>2.ii) Revenue District</b></td><td>${getVal("res_district")}</td></tr>
+        <tr><td><b>2.iii) Revenue Block/Taluka</b></td><td>${getVal("res_taluk")}</td></tr>
+        <tr><td><b>2.iv) City / Village Name</b></td><td>${getVal("res_village")}</td></tr>
+        <tr><td><b>2.v) Pincode</b></td><td>${getVal("res_pincode")}</td></tr>
+        <tr><td><b>2.vi) Mobile Number</b></td><td>${getVal("res_mobile")}</td></tr>
+        <tr><td><b>2.viii) E-mail Id</b></td><td>${getVal("res_email")}</td></tr>
+        <tr><td><b>3. Father's First Name</b></td><td>${getVal("father_first_name")}</td></tr>
+        <tr><td><b>4.i) Father Address</b></td><td>${getVal("father_addr")}</td></tr>
+        <tr><td><b>4.ii) Father District</b></td><td>${getVal("father_district")}</td></tr>
+        <tr><td><b>4.iii) Father Taluka</b></td><td>${getVal("father_taluk")}</td></tr>
+        <tr><td><b>4.iv) Father Village</b></td><td>${getVal("father_village")}</td></tr>
+        <tr><td><b>4.v) Father Pincode</b></td><td>${getVal("father_pincode")}</td></tr>
+        <tr><td><b>4.vi) Father Mobile</b></td><td>${getVal("father_mobile")}</td></tr>
+        <tr><td><b>4.viii) Father Email</b></td><td>${getVal("father_email")}</td></tr>
+        <tr><td><b>5.i) Gender</b></td><td>${getVal("gender")}</td></tr>
+        <tr><td><b>5.ii) Religion</b></td><td>${getVal("religion")}</td></tr>
+        <tr><td><b>5.iii) Nationality</b></td><td>${getVal("nationality")}</td></tr>
+        <tr><td><b>5.iv) Social Category</b></td><td>${getVal("social_category")}</td></tr>
+        <tr><td><b>5.iv.1) Certificate Number</b></td><td>${getVal("cert_number")}</td></tr>
+        <tr><td><b>5.iv.2) SC/ST Certificate Ref</b></td><td>${getVal("sc_st_cert_ref")}</td></tr>
+        <tr><td><b>5.v) Date of Birth</b></td><td>${getVal("dob")}</td></tr>
+        <tr><td><b>5.vi) Date of Birth in Words</b></td><td>${getVal("dob_words")}</td></tr>
+        <tr><td><b>5.viii) Height (cm)</b></td><td>${getVal("height_cm")}</td></tr>
+        <tr><td><b>5.viii) Blood Group</b></td><td>${getVal("blood_group")}</td></tr>
+        <tr><td><b>5.ix) Marital Status</b></td><td>${getVal("marital_status")}</td></tr>
+        <tr><td><b>6.i) Identification Mark 1</b></td><td>${getVal("id_mark_1")}</td></tr>
+        <tr><td><b>6.ii) Identification Mark 2</b></td><td>${getVal("id_mark_2")}</td></tr>
+        <tr><td><b>6.iii) Identification Mark 3</b></td><td>${getVal("id_mark_3")}</td></tr>
+
+        <tr><th colspan="2" style="background:#f1f5f9;">PART-1 : B. SPOUSE DETAILS</th></tr>
+        <tr><td><b>3(a).i) Husband / Wife Name</b></td><td>${getVal("spouse_name")}</td></tr>
+        <tr><td><b>3(b).i) Spouse Address</b></td><td>${getVal("spouse_addr")}</td></tr>
+        <tr><td><b>3(b).ii) Spouse District</b></td><td>${getVal("spouse_district")}</td></tr>
+        <tr><td><b>3(b).iii) Spouse Taluka</b></td><td>${getVal("spouse_taluk")}</td></tr>
+        <tr><td><b>3(b).iv) Spouse Village</b></td><td>${getVal("spouse_village")}</td></tr>
+        <tr><td><b>3(b).v) Spouse Pincode</b></td><td>${getVal("spouse_pincode")}</td></tr>
+        <tr><td><b>3(b).vi) Spouse Mobile</b></td><td>${getVal("spouse_mobile")}</td></tr>
+        <tr><td><b>3(b).viii) Spouse Email</b></td><td>${getVal("spouse_email")}</td></tr>
+        <tr><td><b>3(c) Whether Spouse Working?</b></td><td>${getVal("spouse_working")}</td></tr>
+        <tr><td><b>3(c).i) Spouse Working In</b></td><td>${getVal("spouse_working_in")}</td></tr>
+        <tr><td><b>3(c).iii) Designation</b></td><td>${getVal("spouse_designation")}</td></tr>
+        <tr><td><b>3(c).iv) Department</b></td><td>${getVal("spouse_department")}</td></tr>
+        <tr><td><b>3(c).v) Office Address</b></td><td>${getVal("spouse_office_addr")}</td></tr>
+        <tr><td><b>3(c).vi) Office Pincode</b></td><td>${getVal("spouse_office_pincode")}</td></tr>
+      </table><br>
+
+      <table border="1" cellspacing="0" cellpadding="4">
+        <tr><th colspan="12" style="background:#f1f5f9;">QUALIFICATION DETAILS</th></tr>
+        <tr>
+          <th>Course</th><th>Year of Passing</th><th>Register Number</th><th>Language 1</th><th>Language 2</th><th>Language 3</th>
+          <th>Core Subjects</th><th>Medium</th><th>Percentage of Marks</th><th>State</th><th>Board/University Name</th><th>Certificate Number</th>
+        </tr>`;
+
+    document.querySelectorAll("#qualTbody tr").forEach(tr => {
+      const cells = Array.from(tr.querySelectorAll("input")).map(i => `<td>${escapeHtml(i.value)}</td>`).join("");
+      html += `<tr>${cells}</tr>`;
+    });
+
+    html += `</table><br>
+      <table border="1" cellspacing="0" cellpadding="4">
+        <tr><th colspan="12" style="background:#f1f5f9;">PART II : B. FAMILY AND DEPENDENT DETAILS</th></tr>
+        <tr>
+          <th>Member</th><th>Family Member Name</th><th>Relation</th><th>Gender</th><th>Date of Birth</th>
+          <th>Dependent</th><th>Pensioner</th><th>Working In</th><th>Income Per Annum</th>
+          <th>Physically Challenged</th><th>Disability %</th><th>Mobile Number</th>
+        </tr>`;
+
+    document.querySelectorAll("#familyTbody tr").forEach(tr => {
+      const mem = escapeHtml(tr.querySelector(".mem-label")?.textContent || "");
+      const relVal = escapeHtml(getRelationValue(tr, "fam_relation[]"));
+      const nameVal = escapeHtml(tr.querySelector('[name="fam_name[]"]')?.value || "");
+      const genderVal = escapeHtml(tr.querySelector('[name="fam_gender[]"]')?.value || "");
+      const dobVal = escapeHtml(tr.querySelector('[name="fam_dob[]"]')?.value || "");
+      const depVal = escapeHtml(tr.querySelector('[name="fam_dependent[]"]')?.value || "");
+      const penVal = escapeHtml(tr.querySelector('[name="fam_pensioner[]"]')?.value || "");
+      const workVal = escapeHtml(tr.querySelector('[name="fam_working_in[]"]')?.value || "");
+      const incVal = escapeHtml(tr.querySelector('[name="fam_income[]"]')?.value || "");
+      const phyVal = escapeHtml(tr.querySelector('[name="fam_phy_challenged[]"]')?.value || "");
+      const disVal = escapeHtml(tr.querySelector('[name="fam_disability_pct[]"]')?.value || "");
+      const mobVal = escapeHtml(tr.querySelector('[name="fam_mobile[]"]')?.value || "");
+      html += `<tr><td>${mem}</td><td>${nameVal}</td><td>${relVal}</td><td>${genderVal}</td><td>${dobVal}</td><td>${depVal}</td><td>${penVal}</td><td>${workVal}</td><td>${incVal}</td><td>${phyVal}</td><td>${disVal}</td><td>${mobVal}</td></tr>`;
+    });
+
+    html += `</table><br>
+      <table border="1" cellspacing="0" cellpadding="4">
+        <tr><th colspan="10" style="background:#f1f5f9;">NOMINEE DETAILS</th></tr>
+        <tr>
+          <th>Nomination For</th><th>Share in %</th><th>Nomination Type</th><th>Family Member</th>
+          <th>Relation</th><th>Gender</th><th>Nomination Stands Invalid If</th><th>DOB of Nominee</th><th>Date of Nomination</th><th>Mobile Number</th>
+        </tr>`;
+
+    document.querySelectorAll("#nomineeTbody tr").forEach(tr => {
+      const forVal = escapeHtml(tr.querySelector('[name="nom_for[]"]')?.value || "");
+      const shareVal = escapeHtml(tr.querySelector('[name="nom_share_pct[]"]')?.value || "");
+      const typeVal = escapeHtml(tr.querySelector('[name="nom_type[]"]')?.value || "");
+      const memVal = escapeHtml(tr.querySelector('[name="nom_member[]"]')?.value || "");
+      const relVal = escapeHtml(getRelationValue(tr, "nom_relation[]"));
+      const genVal = escapeHtml(tr.querySelector('[name="nom_gender[]"]')?.value || "");
+      const invVal = escapeHtml(tr.querySelector('[name="nom_invalid_if[]"]')?.value || "");
+      const dobVal = escapeHtml(tr.querySelector('[name="nom_dob[]"]')?.value || "");
+      const dateVal = escapeHtml(tr.querySelector('[name="nom_date[]"]')?.value || "");
+      const mobVal = escapeHtml(tr.querySelector('[name="nom_mobile[]"]')?.value || "");
+      html += `<tr><td>${forVal}</td><td>${shareVal}</td><td>${typeVal}</td><td>${memVal}</td><td>${relVal}</td><td>${genVal}</td><td>${invVal}</td><td>${dobVal}</td><td>${dateVal}</td><td>${mobVal}</td></tr>`;
+    });
+
+    html += `</table></body></html>`;
+
+    const blob = new Blob(["\ufeff", html], { type: "application/vnd.ms-excel;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ESR_Data_${empName || "Form"}.xls`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function getPhotoUiElements(targetKey) {
+    if (targetKey === "fam") {
+      return {
+        previewEl: document.getElementById("famPhotoPreview"),
+        metaEl: document.getElementById("famPhotoMeta"),
+        fileEl: document.getElementById("famPhotoFile"),
+        label: "Family Photo",
+        defaultMeta: "Upload family photo from gallery/files or capture using camera."
+      };
+    }
+    if (targetKey === "qual") {
+      return {
+        previewEl: document.getElementById("qualPhotoPreview"),
+        metaEl: document.getElementById("qualPhotoMeta"),
+        fileEl: document.getElementById("qualPhotoFile"),
+        label: "Qualification Photo",
+        defaultMeta: "Upload qualification photo/document or capture using camera."
+      };
+    }
+    return {
+      previewEl: document.getElementById("empPhotoPreview"),
+      metaEl: document.getElementById("empPhotoMeta"),
+      fileEl: document.getElementById("empPhotoFile"),
+      label: "Employee Photo",
+      defaultMeta: "Upload from gallery/files or capture using camera."
+    };
+  }
+
+  function compressAndSetPhoto(imgSource, targetKey) {
+    const canvas = document.createElement("canvas");
+    let width = imgSource.width || imgSource.videoWidth || 640;
+    let height = imgSource.height || imgSource.videoHeight || 640;
+    const maxDim = targetKey === "emp" ? 480 : 840;
+
+    if (width > maxDim || height > maxDim) {
+      if (width > height) {
+        height = Math.round((height * maxDim) / width);
+        width = maxDim;
+      } else {
+        width = Math.round((width * maxDim) / height);
+        height = maxDim;
+      }
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(imgSource, 0, 0, width, height);
+
+    let quality = 0.85;
+    let dataUrl = canvas.toDataURL("image/jpeg", quality);
+    while (Math.round((dataUrl.length * 3) / 4) > 95 * 1024 && quality > 0.15) {
+      quality -= 0.07;
+      dataUrl = canvas.toDataURL("image/jpeg", quality);
+    }
+
+    const kbSize = (Math.round((dataUrl.length * 3) / 4) / 1024).toFixed(1);
+    photoStore[targetKey] = dataUrl;
+
+    const { previewEl, metaEl, label } = getPhotoUiElements(targetKey);
+    if (previewEl) previewEl.innerHTML = `<img src="${dataUrl}" alt="${label}">`;
+    if (metaEl) metaEl.textContent = `Photo Ready (${kbSize} KB)`;
+    saveAllFormData(true);
+  }
+
+  function processPhotoFile(event, targetKey) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => compressAndSetPhoto(img, targetKey);
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function clearPhoto(targetKey) {
+    photoStore[targetKey] = "";
+    const { fileEl, previewEl, metaEl, label, defaultMeta } = getPhotoUiElements(targetKey);
+    if (fileEl) fileEl.value = "";
+    if (previewEl) previewEl.innerHTML = `<span>${label}</span>`;
+    if (metaEl) metaEl.textContent = defaultMeta;
+    saveAllFormData(true);
+  }
+
+  async function openCamera(targetKey, preferredFacing = "user") {
+    activeCamTarget = targetKey;
+    activeCamFacing = preferredFacing;
+    const titleEl = document.getElementById("cameraModalTitle");
+    if (targetKey === "emp") titleEl.textContent = "Capture Employee Photo";
+    else if (targetKey === "fam") titleEl.textContent = "Capture Family Photo";
+    else titleEl.textContent = "Capture Qualification Photo";
+
+    document.getElementById("cameraModal").classList.add("open");
+    await startCameraStream(activeCamFacing);
+  }
+
+  async function switchCameraFacing() {
+    activeCamFacing = activeCamFacing === "user" ? "environment" : "user";
+    await startCameraStream(activeCamFacing);
+  }
+
+  async function startCameraStream(facingMode) {
+    const video = document.getElementById("cameraStream");
+    if (mediaStream) {
+      mediaStream.getTracks().forEach(t => t.stop());
+      mediaStream = null;
+    }
+    try {
+      mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: facingMode }, width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false
+      });
+      video.srcObject = mediaStream;
+      await video.play();
+    } catch (err) {
+      try {
+        mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        video.srcObject = mediaStream;
+        await video.play();
+      } catch (err2) {
+        alert("Unable to open camera. Please use Upload Photo instead.");
+        closeCamera();
+      }
+    }
+  }
+
+  function snapCameraPhoto() {
+    compressAndSetPhoto(document.getElementById("cameraStream"), activeCamTarget);
+    closeCamera();
+  }
+
+  function closeCamera() {
+    document.getElementById("cameraModal").classList.remove("open");
+    if (mediaStream) {
+      mediaStream.getTracks().forEach(t => t.stop());
+      mediaStream = null;
+    }
+  }
+
+  // Render full wrapped text for every input/select so nothing clips or truncates in print
+  function syncPrintValueBoxes() {
+    document.querySelectorAll(".print-value-box").forEach(el => el.remove());
+    document.querySelectorAll("input, select").forEach(ctrl => {
+      if (ctrl.type === "file" || ctrl.type === "checkbox") return;
+      if (ctrl.classList.contains("rel-select") && ctrl.style.display === "none") return;
+      if (ctrl.classList.contains("rel-input") && ctrl.style.display === "none") return;
+
+      const box = document.createElement("span");
+      box.className = "print-value-box";
+      if (ctrl.tagName === "SELECT") {
+        const opt = ctrl.options[ctrl.selectedIndex];
+        box.textContent = (ctrl.value && opt) ? opt.text : "";
+      } else {
+        box.textContent = ctrl.value || "";
+      }
+      ctrl.parentNode.appendChild(box);
+    });
+  }
+
+  function clearPrintValueBoxes() {
+    document.querySelectorAll(".print-value-box").forEach(el => el.remove());
+  }
+
+  function prepareAndPrint() {
+    saveAllFormData(true);
+    syncPrintValueBoxes();
+    window.print();
+    setTimeout(clearPrintValueBoxes, 800);
+  }
+
+  window.addEventListener("beforeprint", syncPrintValueBoxes);
+  window.addEventListener("afterprint", clearPrintValueBoxes);
+
+  function toggleSpouseWorkingIn() {
+    const val = document.getElementById("spouseWorking").value;
+    const sel = document.getElementById("spouseWorkingIn");
+    if (val === "No") sel.value = "";
+  }
+
+  function addQualificationRow(course = "", saved = {}) {
+    const tbody = document.getElementById("qualTbody");
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><input type="text" name="qual_course[]" value="${escapeHtml(saved.course ?? course)}" placeholder="Course"></td>
+      <td><input type="text" name="qual_year[]" value="${escapeHtml(saved.year)}" placeholder="Year"></td>
+      <td><input type="text" name="qual_reg[]" value="${escapeHtml(saved.reg)}" placeholder="Reg. No"></td>
+      <td><input type="text" name="qual_lang1[]" value="${escapeHtml(saved.lang1)}" placeholder="Lang 1"></td>
+      <td><input type="text" name="qual_lang2[]" value="${escapeHtml(saved.lang2)}" placeholder="Lang 2"></td>
+      <td><input type="text" name="qual_lang3[]" value="${escapeHtml(saved.lang3)}" placeholder="Lang 3"></td>
+      <td><input type="text" name="qual_core_sub[]" value="${escapeHtml(saved.core_sub)}" placeholder="Core Subjects"></td>
+      <td><input type="text" name="qual_medium[]" value="${escapeHtml(saved.medium)}" placeholder="Medium"></td>
+      <td><input type="text" name="qual_pct[]" value="${escapeHtml(saved.pct)}" placeholder="% Marks"></td>
+      <td><input type="text" name="qual_state[]" value="${escapeHtml(saved.state)}" placeholder="State"></td>
+      <td><input type="text" name="qual_board_univ[]" value="${escapeHtml(saved.board_univ)}" placeholder="Board/University"></td>
+      <td><input type="text" name="qual_cert_no[]" value="${escapeHtml(saved.cert_no)}" placeholder="Cert. No"></td>
+      <td class="col-action no-print">
+        <button type="button" class="btn btn-del" onclick="this.closest('tr').remove()">&#10005;</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+    bindEnglishOnlyInputs();
+  }
+
+  function renumberFamilyMembers() {
+    document.querySelectorAll("#familyTbody tr").forEach((tr, idx) => {
+      const lbl = tr.querySelector(".mem-label");
+      if (lbl) lbl.textContent = `MEMBER-${idx + 1}`;
+    });
+  }
+
+  function addFamilyRow(saved = {}) {
+    const tbody = document.getElementById("familyTbody");
+    const num = tbody.children.length + 1;
+    const rel = saved.relation || "";
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="mem-label" style="font-weight:700;">MEMBER-${num}</td>
+      <td><input type="text" name="fam_name[]" value="${escapeHtml(saved.name)}" placeholder="Member Name"></td>
+      <td>${buildRelationCellHtml("fam_relation[]", rel)}</td>
+      <td>
+        <select name="fam_gender[]">
+          <option value="">--</option>
+          <option value="Male" ${saved.gender === "Male" ? "selected" : ""}>Male</option>
+          <option value="Female" ${saved.gender === "Female" ? "selected" : ""}>Female</option>
+          <option value="Transgender" ${saved.gender === "Transgender" ? "selected" : ""}>Transgender</option>
+        </select>
+      </td>
+      <td><input type="date" name="fam_dob[]" value="${escapeHtml(saved.dob)}"></td>
+      <td>
+        <select name="fam_dependent[]">
+          <option value="">--</option>
+          <option value="Yes" ${saved.dependent === "Yes" ? "selected" : ""}>Yes</option>
+          <option value="No" ${saved.dependent === "No" ? "selected" : ""}>No</option>
+        </select>
+      </td>
+      <td>
+        <select name="fam_pensioner[]">
+          <option value="">--</option>
+          <option value="Yes" ${saved.pensioner === "Yes" ? "selected" : ""}>Yes</option>
+          <option value="No" ${saved.pensioner === "No" ? "selected" : ""}>No</option>
+        </select>
+      </td>
+      <td><input type="text" name="fam_working_in[]" value="${escapeHtml(saved.working_in)}" placeholder="Working In"></td>
+      <td><input type="text" name="fam_income[]" value="${escapeHtml(saved.income)}" placeholder="Annual Income"></td>
+      <td>
+        <select name="fam_phy_challenged[]">
+          <option value="">--</option>
+          <option value="No" ${saved.phy_challenged === "No" ? "selected" : ""}>No</option>
+          <option value="Yes" ${saved.phy_challenged === "Yes" ? "selected" : ""}>Yes</option>
+        </select>
+      </td>
+      <td><input type="text" name="fam_disability_pct[]" value="${escapeHtml(saved.disability_pct)}" placeholder="Disability %"></td>
+      <td><input type="text" name="fam_mobile[]" value="${escapeHtml(saved.mobile)}" maxlength="10" placeholder="Mobile No"></td>
+      <td class="col-action no-print">
+        <button type="button" class="btn btn-del" onclick="this.closest('tr').remove();renumberFamilyMembers();">&#10005;</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+    bindEnglishOnlyInputs();
+  }
+
+  function addNomineeRow(nomFor = "", saved = {}) {
+    const tbody = document.getElementById("nomineeTbody");
+    const selectedFor = saved.nom_for ?? nomFor ?? "";
+    const rel = saved.relation || "";
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>
+        <select name="nom_for[]">
+          <option value="">-- Select --</option>
+          <option value="DCRG" ${selectedFor === "DCRG" ? "selected" : ""}>DCRG</option>
+          <option value="GPF" ${selectedFor === "GPF" ? "selected" : ""}>GPF</option>
+          <option value="GIS" ${selectedFor === "GIS" ? "selected" : ""}>GIS</option>
+          <option value="ALL" ${selectedFor === "ALL" ? "selected" : ""}>ALL</option>
+        </select>
+      </td>
+      <td><input type="text" name="nom_share_pct[]" value="${escapeHtml(saved.share_pct)}" placeholder="Share %"></td>
+      <td><input type="text" name="nom_type[]" value="${escapeHtml(saved.nom_type)}" placeholder="Nomination Type"></td>
+      <td><input type="text" name="nom_member[]" value="${escapeHtml(saved.member)}" placeholder="Family Member"></td>
+      <td>${buildRelationCellHtml("nom_relation[]", rel)}</td>
+      <td>
+        <select name="nom_gender[]">
+          <option value="">--</option>
+          <option value="Male" ${saved.gender === "Male" ? "selected" : ""}>Male</option>
+          <option value="Female" ${saved.gender === "Female" ? "selected" : ""}>Female</option>
+          <option value="Transgender" ${saved.gender === "Transgender" ? "selected" : ""}>Transgender</option>
+        </select>
+      </td>
+      <td><input type="text" name="nom_invalid_if[]" value="${escapeHtml(saved.invalid_if)}" placeholder="Invalid If"></td>
+      <td><input type="date" name="nom_dob[]" value="${escapeHtml(saved.dob)}"></td>
+      <td><input type="date" name="nom_date[]" value="${escapeHtml(saved.nom_date)}"></td>
+      <td><input type="text" name="nom_mobile[]" value="${escapeHtml(saved.mobile)}" maxlength="10" placeholder="Mobile No"></td>
+      <td class="col-action no-print">
+        <button type="button" class="btn btn-del" onclick="this.closest('tr').remove()">&#10005;</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+    bindEnglishOnlyInputs();
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const restored = restoreSavedFormData();
+    if (!restored) {
+      ["SSLC", "PUC", "DEGREE"].forEach(c => addQualificationRow(c));
+      addFamilyRow();
+      ["DCRG", "GIS"].forEach(n => addNomineeRow(n));
+    }
+    bindEnglishOnlyInputs();
+  });
+</script>
+</body>
+</html>
